@@ -1,11 +1,14 @@
 import { useState } from "react";
 
 export default  function App() {
-  const [firstName, setFirstName] = useState("");
+  const [productName, setProductName] = useState("");
+  const [shoppingList, setShoppingList] = useState(["Pane", "Acqua", "Uova"]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("il nome inviato è : " + firstName)
+
+    const newShoppingList = [...shoppingList, productName];
+    setShoppingList(newShoppingList);
   };
 
 
@@ -13,18 +16,19 @@ export default  function App() {
     <div>
       <h1>Lista</h1>
       <ul>
-        <li>Pane</li>
-        <li>Acqua</li>
-        <li>Uova</li>
+        {
+          shoppingList.map((product, index) => (
+          <li key={index}>{product}</li>
+        ))}
       </ul>
       <hr />
       <h3>Aggiungi alla lista</h3>
     <form onSubmit={handleSubmit}>
     <input 
     type="text"
-    value={firstName}
+    value={productName}
     onChange={(e) =>{
-      setFirstName(e.target.value);
+      setProductName(e.target.value);
     }}></input>
     <button type="submit">invia</button>
     </form>
